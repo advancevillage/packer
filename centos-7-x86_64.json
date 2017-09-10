@@ -9,12 +9,10 @@
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
       "guest_os_type": "RedHat_64",
       "hard_drive_interface": "sata",
-      "headless": "{{ user `headless` }}",
       "http_directory": "http",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `mirror`}}/{{user `mirror_directory`}}/{{user `iso_name`}}",
-      "output_directory": "packer-{{user `template`}}-virtualbox",
       "shutdown_command": "echo 'node' | sudo -S /sbin/halt -h -p",
       "ssh_password": "passw0rd",
       "ssh_port": 22,
@@ -35,7 +33,6 @@
           "{{ user `cpus` }}"
         ]
       ],
-      "virtualbox_version_file": ".vbox_version",
       "vm_name": "{{user `vmname`}}"
     }
   ],
@@ -48,12 +45,6 @@
   ],
   "provisioners": [
     {
-      "environment_vars": [
-        "HOME_DIR=/home/node",
-        "http_proxy={{user `http_proxy`}}",
-        "https_proxy={{user `https_proxy`}}",
-        "no_proxy={{user `no_proxy`}}"
-      ],
       "execute_command": "echo 'node' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
         "scripts/centos/update.sh",
@@ -64,26 +55,17 @@
     }
   ],
   "variables": {
-    "box_basename": "centos-7",
-    "build_timestamp": "{{isotime \"20060102150405\"}}",
+    "vmname": "devcentos",
+    "box_basename": "centos-7-x86_64",
+    "build_timestamp": "{{isotime \"201709101409\"}}",
     "cpus": "2",
     "memory": "4096",
     "disk_size": "40960",
-    "git_revision": "__unknown_git_revision__",
-    "headless": "",
-    "http_proxy": "{{env `http_proxy`}}",
-    "https_proxy": "{{env `https_proxy`}}",
-    "hyperv_generation": "1",
-    "hyperv_switch": "{{env `hyperv_switch`}}",
     "ks_path": "centos/ks.cfg",
     "iso_checksum": "d2ec6cfa7cf6d89e484aa2d9f830517c",
     "iso_checksum_type": "md5",
     "mirror": "F:/iso",
     "mirror_directory": "centos",
-    "iso_name": "centos-7-x86_64.iso",
-    "vmname": "devcentos",
-    "no_proxy": "{{env `no_proxy`}}",
-    "template": "centos-7-x86_64",
-    "version": "TIMESTAMP"
+    "iso_name": "centos-7-x86_64.iso"
   }
 }
