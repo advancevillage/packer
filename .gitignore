@@ -1,0 +1,5 @@
+#生成Box文件目录
+builds
+
+#中间间目录
+packer_cache
