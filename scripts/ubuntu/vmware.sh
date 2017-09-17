@@ -1,4 +1,4 @@
-#!/bin/sh -eux
+!/bin/sh -eux
 
 case "$PACKER_BUILDER_TYPE" in
 vmware-iso|vmware-vmx)

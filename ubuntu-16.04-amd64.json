@@ -26,9 +26,8 @@
         " keyboard-configuration/layout=USA<wait>",
         " keyboard-configuration/variant=USA<wait>",
         " locale=en_US.UTF-8<wait>",
-        " hostname={{ user `hostname` }} ",
         " netcfg/get_domain=vm<wait>",
-        " netcfg/get_hostname=vagrant<wait>",
+        " netcfg/get_hostname={{ user `ssh_username` }}<wait>",
         " grub-installer/bootdev=/dev/sda<wait>",
         " noapic<wait>",
         " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `preseed_path`}}<wait>",
@@ -63,7 +62,8 @@
   "post-processors": [
     {
       "output": "builds/{{.Provider}}-{{user `box_basename`}}.{{ user `version`}}.box",
-      "type": "vagrant"
+      "type": "vagrant",
+      "compression_level": 9
     }
   ],
   "provisioners": [
@@ -76,6 +76,7 @@
         "scripts/ubuntu/update.sh",
         "scripts/common/sshd.sh",
         "scripts/ubuntu/sudoers.sh",
+        "scripts/ubuntu/virtualbox.sh",
         "scripts/ubuntu/cleanup.sh",
         "scripts/common/minimize.sh"
       ],
@@ -92,7 +93,7 @@
     "disk_size": "40960",
     "headless": "false",
     "git_revision": "__unknown_git_revision__",
-    "iso_checksum": "655d1ec0a7415b4d963e7f2c40e3d56bd135907dda2cedd0c75209ced3a63103",
+    "iso_checksum": "a06cd926f5855d4f21fb4bc9978a35312f815fbda0d0ef7fdc846861f4fc4600",
     "iso_checksum_type": "sha256",
     "mirror": "F:/iso",
     "mirror_directory": "ubuntu",
