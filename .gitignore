@@ -3,3 +3,6 @@ builds
 
 #中间间目录
 packer_cache
+
+packer*
+packer*/
