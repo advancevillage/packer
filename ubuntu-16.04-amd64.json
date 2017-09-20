@@ -30,6 +30,11 @@
         " netcfg/get_hostname={{ user `ssh_username` }}<wait>",
         " grub-installer/bootdev=/dev/sda<wait>",
         " noapic<wait>",
+        " passwd/user-fullname={{ user `ssh_fullname` }} ",
+        " passwd/username={{ user `ssh_username` }} ",
+        " passwd/user-uid=1000",
+        " passwd/user-password={{ user `ssh_password` }} ",
+        " passwd/user-password-again={{ user `ssh_password` }} ",
         " preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `preseed_path`}}<wait>",
         " -- <wait>",
         " <enter><wait>"
@@ -61,7 +66,7 @@
   ],
   "post-processors": [
     {
-      "output": "builds/{{.Provider}}-{{user `box_basename`}}.{{ user `version`}}.box",
+      "output": "builds/{{.Provider}}-{{user `box_basename`}}-{{ user `version`}}.box",
       "type": "vagrant",
       "compression_level": 9
     }
@@ -69,7 +74,7 @@
   "provisioners": [
     {
       "environment_vars": [
-        "HOME_DIR=/home/node"
+        "HOME_DIR=/home/{{user `ssh_username`}}"
       ],
       "execute_command": "echo '{{ user `ssh_password`}}' | {{.Vars}} sudo -S -E sh -eux '{{.Path}}'",
       "scripts": [
@@ -98,10 +103,10 @@
     "mirror": "F:/iso",
     "mirror_directory": "ubuntu",
     "iso_name": "ubuntu-16.04-amd64.iso", 
-    "version": "0.0.1",
-    "ssh_fullname": "node",
-    "ssh_username": "node",
-    "ssh_password": "passw0rd"
+    "version": "001",
+    "ssh_fullname": "admin",
+    "ssh_username": "admin",
+    "ssh_password": "richardkelly"
   }
 }
 
