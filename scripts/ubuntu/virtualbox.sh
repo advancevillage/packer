@@ -1,8 +1,11 @@
 #!/bin/sh -eux
 
+user=richard
+HOME_DIR="${HOME_DIR:-/home/$user}";
+
 case "$PACKER_BUILDER_TYPE" in
 virtualbox-iso|virtualbox-ovf)
-    VER="`cat /home/node/.vbox_version`";
+    VER="`cat $HOME_DIR/.vbox_version`";
     ISO="VBoxGuestAdditions_$VER.iso";
     mkdir -p /tmp/vbox;
     mount -o loop $HOME_DIR/$ISO /tmp/vbox;
