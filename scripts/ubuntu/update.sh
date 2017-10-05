@@ -2,7 +2,7 @@
 
 ubuntu_version="`lsb_release -r | awk '{print $2}'`";
 ubuntu_major_version="`echo $ubuntu_version | awk -F. '{print $1}'`";
-apt_source_url=mirrors.aliyun.com
+apt_source=mirrors.aliyun.com
 
 # Disable release-upgrades
 sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades;
@@ -10,17 +10,15 @@ sed -i.bak 's/^Prompt=.*$/Prompt=never/' /etc/update-manager/release-upgrades;
 # Update the package list
 (
 cat << EOF
-deb http://$apt_source_url/ubuntu/ xenial main restricted universe multiverse
-deb-src http://$apt_source_url/ubuntu/ xenial main restricted universe multiverse
+deb http://$apt_source/ubuntu/ xenial main restricted universe multiverse
+deb http://$apt_source/ubuntu/ xenial-security main restricted universe multiverse
+deb http://$apt_source/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://$apt_source/ubuntu/ xenial-backports main restricted universe multiverse
 
-deb http://$apt_source_url/ubuntu/ xenial-updates main restricted universe multiverse
-deb-src http://$apt_source_url/ubuntu/ xenial-updates main restricted universe multiverse
-
-deb http://$apt_source_url/ubuntu/ xenial-backports main restricted universe multiverse
-deb-src http://$apt_source_url/ubuntu/ xenial-backports main restricted universe multiverse
- 
-deb http://$apt_source_url/ubuntu xenial-security main restricted universe multiverse
-deb-src http://$apt_source_url/ubuntu xenial-security main restricted universe multiverse
+deb-src http://$apt_source/ubuntu/ xenial main restricted universe multiverse
+deb-src http://$apt_source/ubuntu/ xenial-security main restricted universe multiverse
+deb-src http://$apt_source/ubuntu/ xenial-updates main restricted universe multiverse
+deb-src http://$apt_source/ubuntu/ xenial-backports main restricted universe multiverse
 
 EOF
 ) > /etc/apt/sources.list
